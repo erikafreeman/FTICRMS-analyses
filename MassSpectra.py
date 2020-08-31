@@ -5,7 +5,14 @@ Created on Tue Feb 11 11:38:58 2020
 @author: ECF
 """
 
+import sys 
 import pandas as pd
+
+input_csv = sys.argv[1] #this is the entire file name including the directory
+
+
+
+
 from scipy.spatial import distance_matrix
 from skbio.stats.ordination import pcoa
 from skbio.diversity import alpha_diversity
@@ -20,9 +27,6 @@ from mpl_toolkits.mplot3d import axes3d, Axes3D
 from IPython import get_ipython
 get_ipython().run_line_magic('matplotlib', 'notebook')
 
-
-basedir = r'home/erika/Desktop/'
-input_csv = basedir+ 'MassSpectra.py'
 
 'project name is the fourth component of the sample string'
 project_name = 'Canada' 
