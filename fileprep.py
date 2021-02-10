@@ -27,16 +27,17 @@ SampleNames['Depth'] = SampleNames['Depth'].apply(lambda x: 'Stream' if x.starts
 
 SampleNames.drop(['Slope1', 'Slope2', 'Depth1'], axis=1, inplace=True)
 fdata= SampleNames.set_index('SampleID')
-fdata.to_csv('/home/erika/Desktop/SampleNames.csv')
+#fdata.to_csv('/home/erika/Desktop/SampleNames.csv')
 
 
 edata_start = lkmatch[['mz']]
 edata_start.rename(columns={'mz': 'Mass'}, inplace=True)
-edata_start= edata_start.set_index('Mass')
 edata_end = lkmatch[samples]
 edata_end.columns = analID
-efinal0 = pd.DataFrame(edata_end, index=edata_start.index)
+efinal0 = pd.DataFrame(edata_end)
 edata= efinal0.fillna(0)
+edata= edata.join(edata_start)
+edata= edata.set_index('Mass')
 
 
 
@@ -45,13 +46,13 @@ emeta = lkmatch[['mz','C','H','O','N','C13','S','P','SE','reference']]
 emeta.rename(columns={'mz':'Mass','SE': 'Error','reference': 'NeutralMass'}, inplace=True)
 emeta= emeta.set_index('Mass')
 
-# Create a Pandas Excel writer using XlsxWriter as the engine.
-writer = pd.ExcelWriter('/home/erika/Desktop/pandas_multiple.xlsx', engine='xlsxwriter')
+# # Create a Pandas Excel writer using XlsxWriter as the engine.
+# writer = pd.ExcelWriter('/home/erika/Desktop/pandas_multiple.xlsx', engine='xlsxwriter')
 
-# Write each dataframe to a different worksheet.
-edata.to_excel(writer, sheet_name='e_data')
-fdata.to_excel(writer, sheet_name='f_data')
-emeta.to_excel(writer, sheet_name='e_meta')
+# # Write each dataframe to a different worksheet.
+# edata.to_excel(writer, sheet_name='e_data')
+# fdata.to_excel(writer, sheet_name='f_data')
+# emeta.to_excel(writer, sheet_name='e_meta')
 
-# Close the Pandas Excel writer and output the Excel file.
-writer.save()
+# # Close the Pandas Excel writer and output the Excel file.
+# writer.save()
