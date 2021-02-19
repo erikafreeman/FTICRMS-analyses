@@ -46,13 +46,13 @@ emeta = lkmatch[['mz','C','H','O','N','C13','S','P','SE','reference']]
 emeta.rename(columns={'mz':'Mass','SE': 'Error','reference': 'NeutralMass'}, inplace=True)
 emeta= emeta.set_index('Mass')
 
-# # Create a Pandas Excel writer using XlsxWriter as the engine.
-# writer = pd.ExcelWriter('/home/erika/Desktop/pandas_multiple.xlsx', engine='xlsxwriter')
+# Create a Pandas Excel writer using XlsxWriter as the engine.
+writer = pd.ExcelWriter('/home/erika/Desktop/pandas_multiple.xlsx', engine='xlsxwriter')
 
-# # Write each dataframe to a different worksheet.
-# edata.to_excel(writer, sheet_name='e_data')
-# fdata.to_excel(writer, sheet_name='f_data')
-# emeta.to_excel(writer, sheet_name='e_meta')
+# Write each dataframe to a different worksheet.
+edata.to_excel(writer, sheet_name='e_data')
+fdata.to_excel(writer, sheet_name='f_data')
+emeta.to_excel(writer, sheet_name='e_meta')
 
-# # Close the Pandas Excel writer and output the Excel file.
-# writer.save()
+# Close the Pandas Excel writer and output the Excel file.
+writer.save()

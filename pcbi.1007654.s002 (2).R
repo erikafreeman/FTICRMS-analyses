@@ -12,7 +12,6 @@
 # if you wish to mapp to MetaCyc you must install the MetaCycData package #
 #devtools::install_github("EMSL-Computing/MetaCycData")
 library(MetaCycData)
-
 library(ftmsRanalysis)
 library(datadr)
 library(trelliscope)
@@ -20,7 +19,8 @@ library(plotly)
 library(openxlsx) # for reading in xlsx data file, not necessary if you save sheets as .csvs
 
 # directory where the data is saved, need to modify based on local filepath #
-filepath = ".../S1_ftmsRanalysis_example_data.xlsx"
+#filepath = "/home/erika/Desktop/pcbi.1007654.s001 (2).xlsx"
+filepath = "/home/erika/Desktop/pandas_multiple1.xlsx"
 
 #### format the data ####
 
@@ -37,7 +37,7 @@ peak_data = as.peakData(e_data = edata, f_data = fdata, e_meta = emeta, edata_cn
 
 #### specify main effects relevant for grouping samples ####
 # use location and crop/flora #
-peak_data = group_designation(peak_data, main_effects = c("Location", "Crop_Flora"))
+peak_data = group_designation(peak_data, main_effects = c("Slope", "Depth"))
 
 # summarize data to get number of samples per group #
 # Samples: 20, Molecules: 23060, Percent Missing: 81.739% #
@@ -190,7 +190,7 @@ densityPlot(em0011_data, variable = getNOSCColName(em0011_data),
 getGroupDF(pa_data)
 
 # subset the data to a single group, valid values are in the 'Group' column of the group data.frame #
-mich_switch_data = subset(pa_data, groups = "Michigan_Switchgrass")
+mich_switch_data = subset(pa_data, groups = "S_5")
 
 
 densityPlot(mich_switch_data, variable = getModAromaColName(mich_switch_data), groups = NA, xlabel = "Modified Aromaticity")

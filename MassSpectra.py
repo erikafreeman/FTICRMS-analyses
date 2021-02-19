@@ -12,9 +12,6 @@ import pandas as pd
 
 input_csv = sys.argv[1] #this is the entire file name including the directory
 
-
-
-
 from scipy.spatial import distance_matrix
 from skbio.stats.ordination import pcoa
 from skbio.diversity import alpha_diversity

@@ -1,0 +1,10 @@
+{
+	"folders": [
+		{
+			"path": "../python-geospatial"
+		}
+	],
+	"settings": {
+		"python.pythonPath": "/usr/bin/python2"
+	}
+}
