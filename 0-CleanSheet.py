@@ -5,8 +5,7 @@ import pandas as pd
 This block of code takes the sample name column and splits the name into something 
 a bit more diggestible
 '''
-
-input_csv = sys.argv[1] #this is the entire file name including the directory
+input_csv= '/home/erika/Desktop/likeliest_match.csv'
 FormAtt= pd.read_csv(input_csv)
 
 'project name is the fourth component of the sample string'
@@ -23,6 +22,7 @@ for i, val in enumerate(FormAtt.columns.values):
 FormAtt_Clean = pd.DataFrame.drop(FormAtt, columns= 'id', axis=1)
 listClean = list(FormAtt_Clean.iloc[:,63:].columns)
 listAll = listClean + ['formula_isotopefree']
+print(listAll)
 SampleFormulae = FormAtt_Clean[listAll]
 SampleFormulae = SampleFormulae.set_index('formula_isotopefree')
 #Samp = SampleFormulae.groupby(by=SampleFormulae.columns, axis=1).mean()
@@ -31,7 +31,6 @@ Samp = SampleFormulae.copy()
 SpeciesRichness = Samp.count(axis='columns')
 Samp = Samp.reset_index()
 SpeciesRichness.plot(kind='bar')
-
 
 TransForm = Samp.T
 TransForm.columns = TransForm.iloc[0]
