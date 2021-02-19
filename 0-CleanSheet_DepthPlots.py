@@ -39,6 +39,21 @@ for dup in massframe.columns[massframe.columns.duplicated(keep=False)]:
                                      if d_idx != 0 
                                      else dup 
                                      for d_idx in range(massframe.columns.get_loc(dup).sum())])
+massframe.columns=cols
+
+
+massframe.to_csv('/home/erika/Desktop/likeliest_match_mz.csv')
+
+#number of peaks plot input
+massframe= massframe.fillna(0)
+massframe[massframe>1]=1
+df_sum= massframe.sum(axis=0)
+newdf= pd.DataFrame(df_sum, columns = ['n_peaks'])
+
+
+
+
+
 
 # FormAtt_Clean = pd.DataFrame.drop(FormAtt, columns= 'id', axis=1)
 # listClean = list(FormAtt_Clean.iloc[:,63:].columns)
