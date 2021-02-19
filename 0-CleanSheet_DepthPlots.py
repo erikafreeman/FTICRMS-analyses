@@ -11,6 +11,13 @@ FormAtt= pd.read_csv(input_csv)
 'project name is the fourth component of the sample string'
 project_name = 'Canada' 
 
+def func(row):
+    if len(str(row))>1 and len(str(row))< 3:
+        r = ''.join(x for x in row if x.isalpha())
+        return r
+    else:
+        return row
+
 sample_list= []
 for i, val in enumerate(FormAtt.columns.values):
     if project_name in val:
@@ -49,8 +56,22 @@ massframe= massframe.fillna(0)
 massframe[massframe>1]=1
 df_sum= massframe.sum(axis=0)
 newdf= pd.DataFrame(df_sum, columns = ['n_peaks'])
+newdf= newdf.reset_index()
+newdf['Site']= newdf['index'].str.slice(start=0, stop=2)
+newdf['Slope1']= newdf['index'].str.slice(start=2)
+newdf['Slope2']= newdf['index'].str.slice(start=2, stop=3)
+newdf['Depth1']= newdf['index'].str.slice(start=3)
+newdf['Slope'] = newdf['Slope1'].where(newdf['Slope1'].str.contains('ST'), newdf['Slope2'])
+newdf['Depth'] = newdf['Depth1'].where(newdf['Slope'].str.contains('ST'), newdf['Depth1'])
+newdf['Depth']= newdf['Depth'].astype('str')
+newdf['Depth'] = newdf['Depth'].apply(lambda x: 'Stream' if x.startswith('T') else x)
+newdf.drop(['Slope1', 'Slope2', 'Depth1'], axis=1, inplace=True)
+newdf['Slope'] = newdf['Slope'].replace({'.1': ''}, regex=True)
+newdf['Depth'] = newdf['Depth'].replace({'.1': ''}, regex=True)
+print(newdf)
+newdf.to_csv('/home/erika/Desktop/likeliest_match_abspres.csv')
 
-
+# fdata= SampleNames.set_index('SampleID')
 
 
 
