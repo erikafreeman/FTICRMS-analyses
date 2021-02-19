@@ -22,6 +22,7 @@ samps = sample_list.copy()
 sample_list.append('mz')
 massframe= FormAtt[sample_list]
 massframe= massframe.set_index('mz')
+massframe= massframe.T.drop_duplicates().T
 
 '''
 Column's get_loc() function returns a masked array if it finds duplicates with 'True' 
@@ -37,8 +38,7 @@ for dup in massframe.columns[massframe.columns.duplicated(keep=False)]:
     cols[massframe.columns.get_loc(dup)] = ([dup + '.' + str(d_idx) 
                                      if d_idx != 0 
                                      else dup 
-                                     for d_idx in range(massframe.columns.get_loc(dup).sum())]
-                                    )
+                                     for d_idx in range(massframe.columns.get_loc(dup).sum())])
 
 # FormAtt_Clean = pd.DataFrame.drop(FormAtt, columns= 'id', axis=1)
 # listClean = list(FormAtt_Clean.iloc[:,63:].columns)
