@@ -1,6 +1,6 @@
 import sys 
 import pandas as pd
-
+import re
 '''
 This block of code takes the sample name column and splits the name into something 
 a bit more diggestible
@@ -68,11 +68,12 @@ newdf['Depth'] = newdf['Depth1'].where(newdf['Slope'].str.contains('ST'), newdf[
 newdf['Depth']= newdf['Depth'].astype('str')
 
 newdf['Depth'] = newdf['Depth'].apply(lambda x: 'Stream' if x.startswith('T') or x.startswith('ST') else x)
-print(newdf.iloc[98])
 newdf.drop(['Slope1', 'Slope2', 'Depth1'], axis=1, inplace=True)
 newdf['Slope'] = newdf['Slope'].replace({'.1': '', '.2': '', '.3': ''}, regex=True)
+print(newdf.iloc[98])
+
 newdf['Depth'] = newdf['Depth'].replace({'.1': '', '.2': '', '.3': ''}, regex=True)
-newdf['Slope'].replace({"S": "1S", "B": "2B", "F": "3F", "T": '4T', 'ST':'5ST' }, inplace=True)
+newdf['Slope'].replace({"S": "1S", "B": "2B", "F": "3F", "T": '4T', 'ST':'5ST', 'ST1':'5ST' , 'ST2':'5ST' }, inplace=True)
 newdf.to_csv('/home/erika/Desktop/likeliest_match_abspres.csv')
 
 # fdata= SampleNames.set_index('SampleID')
