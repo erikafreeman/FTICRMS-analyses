@@ -72,9 +72,8 @@ newdf.drop(['Slope1', 'Slope2', 'Depth1'], axis=1, inplace=True)
 #string needs to be exact match to work properly
 newdf['Slope'] = newdf['Slope'].replace({'\.1\b': '', '\.2\b': '', '\.3\b': ''}, regex=True)
 print(newdf.iloc[98])
-
 newdf['Depth'] = newdf['Depth'].replace({'.1': '', '.2': '', '.3': ''}, regex=True)
-newdf['Slope'].replace({"S": "1S", "B": "2B", "F": "3F", "T": '4T', 'ST':'5ST', 'ST1':'5ST' , 'ST2':'5ST' }, inplace=True)
+newdf['Slope'].replace({"S": "1S", "B": "2B", "F": "3F", "T": '4T', 'ST':'5ST', 'ST.1':'5ST' , 'ST1.1':'5ST', 'ST1.2':'5ST' }, inplace=True)
 newdf.to_csv('/home/erika/Desktop/likeliest_match_abspres.csv')
 
 # fdata= SampleNames.set_index('SampleID')
