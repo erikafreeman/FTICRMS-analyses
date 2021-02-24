@@ -71,9 +71,11 @@ newdf['Depth'] = newdf['Depth'].apply(lambda x: 'Stream' if x.startswith('T') or
 newdf.drop(['Slope1', 'Slope2', 'Depth1'], axis=1, inplace=True)
 #string needs to be exact match to work properly
 newdf['Slope'] = newdf['Slope'].replace({'\.1\b': '', '\.2\b': '', '\.3\b': ''}, regex=True)
-print(newdf.iloc[98])
 newdf['Depth'] = newdf['Depth'].replace({'.1': '', '.2': '', '.3': ''}, regex=True)
-newdf['Slope'].replace({"S": "1S", "B": "2B", "F": "3F", "T": '4T', 'ST':'5ST', 'ST.1':'5ST' , 'ST1.1':'5ST', 'ST1.2':'5ST' }, inplace=True)
+#hacky solution to ST problem
+newdf['Slope'].replace({"S": "1S", "B": "2B", "F": "3F", "T": '4T', 'ST':'5ST', 'ST1.1':'5ST' ,'ST2.1':'5ST', 'ST1':'5ST', 'ST2':'5ST', 'ST.1':'5ST' }, inplace=True)
+print(newdf.iloc[98])
+
 newdf.to_csv('/home/erika/Desktop/likeliest_match_abspres.csv')
 
 # fdata= SampleNames.set_index('SampleID')
