@@ -69,7 +69,8 @@ newdf['Depth']= newdf['Depth'].astype('str')
 
 newdf['Depth'] = newdf['Depth'].apply(lambda x: 'Stream' if x.startswith('T') or x.startswith('ST') else x)
 newdf.drop(['Slope1', 'Slope2', 'Depth1'], axis=1, inplace=True)
-newdf['Slope'] = newdf['Slope'].replace({'.1': '', '.2': '', '.3': ''}, regex=True)
+#string needs to be exact match to work properly
+newdf['Slope'] = newdf['Slope'].replace({'\.1\b': '', '\.2\b': '', '\.3\b': ''}, regex=True)
 print(newdf.iloc[98])
 
 newdf['Depth'] = newdf['Depth'].replace({'.1': '', '.2': '', '.3': ''}, regex=True)
