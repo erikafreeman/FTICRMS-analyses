@@ -9,19 +9,16 @@ Created on Tue Feb 11 11:38:58 2020
 
 import sys 
 import pandas as pd
-
-input_csv = sys.argv[1] #this is the entire file name including the directory
-
 from scipy.spatial import distance_matrix
-from skbio.stats.ordination import pcoa
-from skbio.diversity import alpha_diversity
-from skbio.diversity import beta_diversity
+#from skbio.stats.ordination import pcoa
+#from skbio.diversity import alpha_diversity
+#from skbio.diversity import beta_diversity
 import matplotlib.pyplot as plt
-from sklearn.decomposition import PCA
+#from sklearn.decomposition import PCA
 import seaborn as sns
 sns.set_style("white")
 df = sns.load_dataset('iris')
-from mpl_toolkits.mplot3d import axes3d, Axes3D
+#from mpl_toolkits.mplot3d import axes3d, Axes3D
 
 from IPython import get_ipython
 get_ipython().run_line_magic('matplotlib', 'notebook')
