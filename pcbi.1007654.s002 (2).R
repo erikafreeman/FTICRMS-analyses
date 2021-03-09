@@ -143,15 +143,15 @@ bs1_filt = emeta_filter(pa_data, getBS1ColName(pa_data))
 plot(bs1_filt, cats = c("Carbohydrate","Lignin"))
 
 # we won't apply filter here, but below is how to apply filter #
-# pa_data = applyFilt(filter_object = bs1_filt, icrData = pa_data, cats = c("Carbohydrate","Lignin"))
+#pa_data = applyFilt(filter_object = bs1_filt, icrData = pa_data, cats = c("Carbohydrate","Lignin"))
 
 #### plot distribution of e_meta column by sample, for all samples --- doesn't currently work ####
-# classesPlot()
+#classesPlot()
 
 
 #### Visualizations of one sample ####
 # subset to the sample of interest #
-em0011_data <- subset(pa_data, samples="EM0011_sample")
+em0011_data <- subset(pa_data, samples="Sample1")
 
 # get data summary and a look at e_data #
 summary(em0011_data)
@@ -308,3 +308,4 @@ view()
 
 ## Map peaks to MetaCyc
 compound_data = mapPeaksToCompounds(pa_data)
+
