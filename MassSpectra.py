@@ -10,23 +10,20 @@ Created on Tue Feb 11 11:38:58 2020
 import sys 
 import pandas as pd
 from scipy.spatial import distance_matrix
-#from skbio.stats.ordination import pcoa
-#from skbio.diversity import alpha_diversity
-#from skbio.diversity import beta_diversity
+from skbio.stats.ordination import pcoa
+from skbio.diversity import alpha_diversity
+from skbio.diversity import beta_diversity
 import matplotlib.pyplot as plt
-#from sklearn.decomposition import PCA
+from sklearn.decomposition import PCA
 import seaborn as sns
 sns.set_style("white")
 df = sns.load_dataset('iris')
-#from mpl_toolkits.mplot3d import axes3d, Axes3D
-
-from IPython import get_ipython
-get_ipython().run_line_magic('matplotlib', 'notebook')
+from mpl_toolkits.mplot3d import axes3d, Axes3D
 
 
 'project name is the fourth component of the sample string'
 project_name = 'Canada' 
-
+input_csv= '/home/erika/Desktop/likeliest_match.csv'
 FormAtt= pd.read_csv(input_csv)
 
 
@@ -39,8 +36,9 @@ for i, val in enumerate(FormAtt.columns.values):
         site_code = val.split('_')[5]
         FormAtt = FormAtt.rename(columns = {val: site_code})
 
-
 FormAtt_Clean = pd.DataFrame.drop(FormAtt, columns= 'id', axis=1)
+
+
 listClean = list(FormAtt_Clean.iloc[:,63:].columns)
 listAll = listClean + ['formula_isotopefree']
 SampleFormulae = FormAtt_Clean[listAll]

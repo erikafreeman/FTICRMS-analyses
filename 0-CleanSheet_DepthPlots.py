@@ -26,9 +26,9 @@ for i, val in enumerate(FormAtt.columns.values):
         FormAtt = FormAtt.rename(columns = {val: site_code})
 
 samps = sample_list.copy()
-sample_list.append('mz')
+sample_list.append('formula_isotopefree')
 massframe= FormAtt[sample_list]
-massframe= massframe.set_index('mz')
+massframe= massframe.set_index('formula_isotopefree')
 massframe= massframe.T.drop_duplicates().T
 
 '''
