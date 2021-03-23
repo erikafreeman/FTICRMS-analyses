@@ -3,10 +3,11 @@ import pandas as pd
 import re
 '''
 This block of code takes the sample name column and splits the name into something 
-a bit more diggestible
+a bit more digestible
 '''
 input_csv= '/home/erika/Desktop/likeliest_match.csv'
 FormAtt= pd.read_csv(input_csv)
+
 
 'project name is the fourth component of the sample string'
 project_name = 'Canada' 
@@ -25,8 +26,27 @@ for i, val in enumerate(FormAtt.columns.values):
         sample_list.append(site_code)
         FormAtt = FormAtt.rename(columns = {val: site_code})
 
+
 samps = sample_list.copy()
 sample_list.append('formula_isotopefree')
+
+'''
+Just adding some lines here in order to export the calculated chemical metrics that correspond to function from the sheets. 
+
+'''
+chemlist = ['formula_isotopefree','homseries', 'totalc', 'H.C', 'O.C', 'C', 'H', 'O', 'N', 'S', 'P', 'Cl', 'Na', 'C13',
+'O18', 'N15', 'S34', 'Cl37', 'Co', 'Cu.i', 'Cu.ii', 'Cu65.i',
+'Cu65.ii', 'Fe.ii', 'Fe.iii', 'Fe54.ii', 'Fe54.iii', 'Br79', 
+'Br81', 'Ni.ii', 'Ni60.ii', 'Zn.ii', 'Zn66.ii', 'I', 'MDL', 'ResPow', 'SE',
+'present_in', 'AI', 'AI.mod', 'DBE', 
+'Aromatic', 'Aromatic.O_rich', 'Aromatic.O_poor', 
+'Highly.unsaturated', 'Highly.unsaturated.O_rich',
+'Highly.unsaturated.O_poor', 'Unsaturated',
+'Unsaturated.O_rich', 'Unsaturated.O_poor',
+'Unsaturated.with.N', 'Saturated', 'Saturated.O_rich', 'Saturated.O_poor']
+chemframe = FormAtt[chemlist]
+chemframe.to_csv('/home/erika/Desktop/likeliest_match_chemframe.csv')
+
 massframe= FormAtt[sample_list]
 massframe= massframe.set_index('formula_isotopefree')
 massframe= massframe.T.drop_duplicates().T
