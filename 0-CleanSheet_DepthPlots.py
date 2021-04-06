@@ -98,37 +98,32 @@ print(newdf.iloc[98])
 
 newdf.to_csv('/home/erika/Desktop/likeliest_match_abspres.csv')
 
-# fdata= SampleNames.set_index('SampleID')
+fdata= SampleNames.set_index('SampleID')
+
+FormAtt_Clean = pd.DataFrame.drop(FormAtt, columns= 'id', axis=1)
+listClean = list(FormAtt_Clean.iloc[:,63:].columns)
+listAll = listClean + ['formula_isotopefree']
+SampleFormulae = FormAtt_Clean[listAll]
+SampleFormulae = SampleFormulae.set_index('formula_isotopefree')
+#Samp = SampleFormulae.groupby(by=SampleFormulae.columns, axis=1).mean()
+Samp = SampleFormulae.copy()
+#
+SpeciesRichness = Samp.count(axis='columns')
+Samp = Samp.reset_index()
+SpeciesRichness.plot(kind='bar')
+
+TransForm = Samp.T
+TransForm.columns = TransForm.iloc[0]
+TransForm = pd.DataFrame.drop(TransForm, 'formula_isotopefree', axis=0)
 
 
+TransForm = TransForm.fillna(0)
+TransForm = TransForm.reset_index()
+new = TransForm['index'].str.split('(\d+)([A-Za-z]+)', n = 3, expand = True) 
+new['SiteName'] = new[0]+ new[1] 
+new = new.rename(columns={2: 'Position', 3: 'Depth'})
+ids = pd.DataFrame.drop(new, [0,1], axis=1)
+OTU_equivalent = pd.DataFrame.drop(TransForm, 'index', axis=1) 
 
-
-# FormAtt_Clean = pd.DataFrame.drop(FormAtt, columns= 'id', axis=1)
-# listClean = list(FormAtt_Clean.iloc[:,63:].columns)
-# listAll = listClean + ['formula_isotopefree']
-# SampleFormulae = FormAtt_Clean[listAll]
-# SampleFormulae = SampleFormulae.set_index('formula_isotopefree')
-# #Samp = SampleFormulae.groupby(by=SampleFormulae.columns, axis=1).mean()
-# Samp = SampleFormulae.copy()
-# #
-# SpeciesRichness = Samp.count(axis='columns')
-# Samp = Samp.reset_index()
-# SpeciesRichness.plot(kind='bar')
-
-# TransForm = Samp.T
-# TransForm.columns = TransForm.iloc[0]
-# TransForm = pd.DataFrame.drop(TransForm, 'formula_isotopefree', axis=0)
-
-
-# TransForm = TransForm.fillna(0)
-# TransForm = TransForm.reset_index()
-# new = TransForm['index'].str.split('(\d+)([A-Za-z]+)', n = 3, expand = True) 
-# new['SiteName'] = new[0]+ new[1] 
-# new = new.rename(columns={2: 'Position', 3: 'Depth'})
-# ids = pd.DataFrame.drop(new, [0,1], axis=1)
-# OTU_equivalent = pd.DataFrame.drop(TransForm, 'index', axis=1) 
-
-# Formulae = TransForm.reset_index()
-# Formulae = pd.DataFrame.drop(Formulae, 'index', axis=1) 
-
-
+Formulae = TransForm.reset_index()
+Formulae = pd.DataFrame.drop(Formulae, 'index', axis=1) 
